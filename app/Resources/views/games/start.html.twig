@@ -1,6 +1,98 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    Galgje!
+{% endblock %}
+
 {% block body %}
-    <h1>Hangman Game Twig File</h1>
-    <p>{{ message }}</p>
+    <div class="header">
+        <h1><span id="response">{{ response }}</span> <span id="charamount">({{ charAmount }})</span></h1>
+    </div>
+    <main>
+        <div class="game-container">
+            <!-- Debug velden -->
+            {#<p>Gekozen woord is <span style="font-weight:bold">{{ word }}</span></p>#}
+            {#<p>Game ID: {{ gameId }}</p>#}
+
+            <form action="/" method="post" id="chosenletter">
+                <div>
+                    <p>Voer hier uw <span class="bold">letter</span> in</p>
+                    <input class="form-input" type="text" id="letter" pattern="[a-zA-Z]" maxlength="1">
+                </div>
+                <div>
+                    <button id="send">Doe een gok</button>
+                </div>
+            </form>
+        </div>
+        <div class="semirow">
+            <div id="guessedletters">
+                <h3>Ingevoerde letters:</h3>
+            </div>
+            <div id="attemptsleft">
+                <h3>Poging(en) over:</h3>
+                <span>3</span>
+            </div>
+        </div>
+        <div id="statusmessage">
+
+        </div>
+    </main>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"
+            integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script type="text/javascript">
+
+        //
+        $('#chosenletter').submit(function (e) {
+
+            e.preventDefault();
+
+            var chosenLetter = $('#letter').val();
+
+            //Check using regex to see if the input box only contains lowercase a-z or uppercase A-Z
+            if (!chosenLetter.match(/[a-zA-Z]/g)) {
+                $('#letter').addClass('generic-error');
+                return false;
+            }
+
+            $('#letter').val('');
+
+            var url = '/games/{{ gameId }}/' + chosenLetter;
+            console.log(url);
+            $.ajax({
+                url: url,
+                type: 'POST',
+                success: function (response) {
+                    console.log(response);
+                    $('#response').text(response.wordresponse);
+                    $(response.guessedchar).each(function () {
+                        $('#guessedletters span').remove();
+                        $('#guessedletters').append('<span class="guessed-letter">' + response.guessedchar + '</span>');
+
+                    });
+
+                    $('#attemptsleft span').remove();
+                    $('#attemptsleft').append('<span>' + response.triesleft + '</span>');
+
+                    if(response.triesleft == 0){
+                        $('#send').prop("disabled", true);
+                        $('#statusmessage').append('<h4 class="bold">Helaas u heeft verloren!</h4>');
+                    }
+
+                    if(response.victory){
+                        $('#statusmessage').append('<h4 class="bold">Gefeliciteerd u heeft gewonnen!</h4>');
+                    }
+                }
+            });
+        });
+
+
+    </script>
 {% endblock %}

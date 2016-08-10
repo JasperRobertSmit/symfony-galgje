@@ -1,0 +1,108 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+/*
+        Credit to http://designmodo.github.io/Flat-UI/ for most of the design
+*/
+
+html,
+body{
+    background-color:#1abc9c;
+    font-family: 'Open Sans', sans-serif;
+    color:#f3fcfa;
+}
+
+h1{
+    text-align:center;
+}
+
+h3{
+    font-size:17px;
+}
+
+.form-input{
+    border: 2px solid #bdc3c7;
+    color: #34495e;
+    font-family: "Lato", Helvetica, Arial, sans-serif;
+    line-height: 1.467;
+    padding: 8px 12px;
+    border-radius: 6px;
+    box-shadow: none;
+    -webkit-transition: border 0.25s linear, color 0.25s linear, background-color 0.25s linear;
+    transition: border 0.25s linear, color 0.25s linear, background-color 0.25s linear;
+
+
+    font-size: 28px;
+    width: 50px;
+    text-align: center;
+    height: 50px;
+}
+
+#send{
+    color: #ffffff;
+    background-color: #1abc9c;
+
+    border: none;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 1.4;
+    border-radius: 4px;
+    padding: 10px 15px;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -webkit-transition: border 0.25s linear, color 0.25s linear, background-color 0.25s linear;
+    transition: border 0.25s linear, color 0.25s linear, background-color 0.25s linear;
+
+    cursor:pointer;
+
+    margin-top:30px;
+}
+
+
+
+#send:hover{
+    color: #ffffff;
+    background-color: #48c9b0;
+    border-color: #48c9b0;
+}
+
+.form-input:focus{
+    outline:none;
+    border-color: #1abc9c;
+}
+
+.bold{
+    font-weight:700;
+}
+
+.game-container{
+    background-color:#edeff1;
+    max-width:350px;
+    margin:0 auto;
+    padding:15px;
+
+    border-radius:6px;
+
+    color:#848484;
+
+    text-align:center;
+}
+
+.semirow,
+#statusmessage{
+    margin:0 auto;
+    max-width:350px;
+}
+
+#statusmessage{
+    font-style:italic;
+}
+
+.semirow > div{
+    display: inline-block;
+    width: 49%;
+    vertical-align: top;
+    text-align: center;
+}
+
+.generic-error{
+    border: solid 1px red;
+}
